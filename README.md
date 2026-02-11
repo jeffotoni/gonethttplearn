@@ -29,7 +29,7 @@ A proposta central é dominar o **net/http** para que frameworks sejam uma escol
 | 🧭 Roadmap Go | [github.com/jeffotoni/groadmap](https://github.com/jeffotoni/groadmap) | Visão macro de estudo e evolução em Go |
 | ⚡ Quick | [github.com/jeffotoni/quick](https://github.com/jeffotoni/quick) | Framework super leve para APIs em Go |
 
-**Referências Go (complemento do manual)**
+**Referências Go**
 
 | Referência | Link | Tipo | Foco |
 |---|---|---|---|
