@@ -2,33 +2,63 @@
 
 Este repositório é um manual prático de `net/http` em Go com foco exclusivo em **server-side API**. A proposta é evoluir do básico ao avançado com exemplos pequenos, executáveis e organizados em sequência didática.
 
-O que já está coberto neste manual:
-- visão macro de Web Services, REST/RESTful e evolução do HTTP
-- fundamentos de `http.Request`, `http.ResponseWriter`, `http.Handler` e `http.HandlerFunc`
-- variações de `http.ListenAndServe` e uso de `http.ServeMux`/`http.Server`
-- method pattern (`"GET /rota"`, `"POST /rota"`, etc.) no Go 1.22+
-- padronização de resposta, mapa de status/erros, validação de entrada e health endpoints
+**O que já está coberto neste manual**
+
+| Bloco | O que você aprende |
+|---|---|
+| Contexto web | visão macro de Web Services, REST/RESTful e evolução do HTTP |
+| Fundamentos `net/http` | `http.Request`, `http.ResponseWriter`, `http.Handler`, `http.HandlerFunc` |
+| Servidor HTTP em Go | variações de `http.ListenAndServe`, `http.ServeMux` e `http.Server` |
+| Method pattern (Go 1.22+) | rotas como `"GET /rota"` e `"POST /rota"` |
+| API server na prática | padronização de resposta, status/erros, validação e health endpoints |
 
 Este material foi desenvolvido por **Jefferson Otoni Lima (Jeffotoni)**, Engenheiro de Software Sênior e Arquiteto de Soluções.
 Com mais de **22 anos de experiência**, atua principalmente em APIs, arquitetura de software e ecossistema cloud-native, além de programação em diversas linguagens como Go, Rust, C, C++, Java, C#, Node.js,Deno, Bun, PHP, Perl, Python, Dart.
 
 A proposta central é dominar o **net/http** para que frameworks sejam uma escolha, não uma dependência.
 
-**Podcast áudio do manual net/http:**
-[Podcast youtube](https://www.youtube.com/watch?v=5E1FVbMDFs4)
+**Recursos oficiais do manual**
 
-**Chat para tirar dúvidas**
-[ChatBoot do nosso manual](https://notebooklm.google.com/notebook/c50bab62-0214-4b1a-9d53-78079ffc9fe6/preview)
+| Canal | Link | Objetivo |
+|---|---|---|
+| 🎧 Podcast | [YouTube - Podcast do manual](https://www.youtube.com/watch?v=5E1FVbMDFs4) | Revisar os conceitos em formato de áudio |
+| 💬 Chat de dúvidas | [NotebookLM - Chat do manual](https://notebooklm.google.com/notebook/c50bab62-0214-4b1a-9d53-78079ffc9fe6/preview) | Tirar dúvidas e reforçar o conteúdo |
+| 🖥️ Apresentação | [Google Slides do manual](https://docs.google.com/presentation/d/1To-ymSRme7iyUKflu2ctDfyrlY0NjaRnjKYCHQpu6eE/edit?usp=sharing) | Apoio visual para estudo e aula |
+| 👤 LinkedIn | [linkedin.com/in/jeffotoni](https://www.linkedin.com/in/jeffotoni) | Perfil profissional do autor |
+| 💻 GitHub (autor) | [github.com/jeffotoni](https://github.com/jeffotoni) | Repositórios e projetos do autor |
+| 🧭 Roadmap Go | [github.com/jeffotoni/groadmap](https://github.com/jeffotoni/groadmap) | Visão macro de estudo e evolução em Go |
+| ⚡ Quick | [github.com/jeffotoni/quick](https://github.com/jeffotoni/quick) | Framework super leve para APIs em Go |
 
-**Apresentação Google**
-[Apresentação google](https://docs.google.com/presentation/d/1To-ymSRme7iyUKflu2ctDfyrlY0NjaRnjKYCHQpu6eE/edit?usp=sharing)
+**Referências Go (complemento do manual)**
 
-**LinkedIn do autor:**
-[linkedin.com/in/jeffotoni](https://www.linkedin.com/in/jeffotoni)
+| Referência | Link | Tipo | Foco |
+|---|---|---|---|
+| Site oficial do Go | [go.dev](https://go.dev/) | Oficial | Portal principal da linguagem |
+| Tutorial oficial | [go.dev/doc/tutorial](https://go.dev/doc/tutorial/) | Oficial | Passo a passo para começar |
+| Tour do Go | [go.dev/tour/welcome/1](https://go.dev/tour/welcome/1) | Oficial | Aprendizado interativo |
+| Especificação da linguagem | [go.dev/ref/spec](https://go.dev/ref/spec) | Oficial | Regras formais da linguagem |
+| Effective Go | [go.dev/doc/effective_go](https://go.dev/doc/effective_go) | Oficial | Estilo e boas práticas |
+| Notas de release (geral) | [go.dev/doc/devel/release](https://go.dev/doc/devel/release) | Oficial | Histórico de versões |
+| Notas da versão Go 1.26 | [go.dev/doc/go1.26](https://go.dev/doc/go1.26) | Oficial | Novidades da versão 1.26 |
+| Blog do Go 1.26 | [go.dev/blog/go1.26](https://go.dev/blog/go1.26?ref=dailydev) | Oficial | Explicações práticas da release |
+| Go by Example | [gobyexample.com](https://gobyexample.com) | Comunidade | Exemplos diretos e curtos |
 
-**GitHub do autor:**
-https://github.com/jeffotoni
-https://github.com/jeffotoni/quick -> Um framework super leve
+**Referências Jeffotoni (Go e Arquitetura)**
+
+| Projeto | Link | Foco |
+|---|---|---|
+| Go Bootcamp | [gobootcamp.jeffotoni.com](https://gobootcamp.jeffotoni.com/br/index.html) | Trilha de aprendizado em Go |
+| Site pessoal | [jeffotoni.com](http://jeffotoni.com) | Conteúdo e materiais do autor |
+| Go gRPC Palestra | [github.com/jeffotoni/gogrpc.palestra](https://github.com/jeffotoni/gogrpc.palestra) | Materiais e exemplos de gRPC em Go |
+| Go Workshop DevOps | [github.com/jeffotoni/goworkshopdevops](https://github.com/jeffotoni/goworkshopdevops) | Práticas de Go para DevOps |
+| Go Example | [github.com/jeffotoni/goexample](https://github.com/jeffotoni/goexample) | Coleção de exemplos práticos |
+| Benchmarks (Quick) | [github.com/goquick-run/benchmarks](https://github.com/goquick-run/benchmarks) | Comparações de performance |
+| Go Cache | [github.com/jeffotoni/gocache](https://github.com/jeffotoni/gocache) | Estratégias de cache em Go |
+| Go Manual | [gomanual.jeffotoni.com](https://gomanual.jeffotoni.com/) | Manual de referência em Go |
+| Go Roadmap | [github.com/jeffotoni/groadmap](https://github.com/jeffotoni/groadmap) | Visão macro da jornada Go |
+| Quick | [github.com/jeffotoni/quick](https://github.com/jeffotoni/quick) | Framework leve para APIs em Go |
+| Benchmark | [github.com/jeffotoni/benchmark](https://github.com/jeffotoni/benchmark) | Estudos de benchmark |
+| Go Hexagonal DDD | [github.com/jeffotoni/go-hexagonal-ddd](https://github.com/jeffotoni/go-hexagonal-ddd) | Arquitetura Hexagonal + DDD em Go |
 
 ```bash
    ██████╗ ██╗   ██╗██╗ ██████╗██╗  ██╗
@@ -50,7 +80,10 @@ https://github.com/jeffotoni/quick -> Um framework super leve
 - [Trilha de conteúdo](#trilha-de-conteudo)
 - [1. Contexto: Web Services, REST e Protocolos](#1-contexto-web-services-rest-e-protocolos)
 - [Keep-Alive: HTTP/1.0 -> HTTP/1.1 -> HTTP/2](#keep-alive-http10---http11---http2)
+- [Modelo OSI (7 Camadas)](#modelo-osi-7-camadas)
+- [Modelo TCP/IP (4 Camadas)](#modelo-tcpip-4-camadas)
 - [REST Constraints](#rest-constraints)
+- [Significado das Siglas](#significado-das-siglas)
 - [HTTP Methods (Verbos HTTP)](#http-methods-verbos-http)
 - [Corpo em REST (request/response) com status na prática](#corpo-em-rest-requestresponse-com-status-na-pratica)
 - [2. Overview de Go para APIs](#2-overview-de-go-para-apis)
@@ -189,21 +222,59 @@ Referência didática:
 - Modelo OSI (7 camadas)
 - Modelo TCP/IP (4 camadas, mais usado na prática)
 
-| Tecnologia | Tipo | Camada OSI | Camada TCP/IP | Papel |
-|---|---|---|---|---|
-| HTTP | Protocolo de aplicação | 7 (Aplicação) | Aplicação | Define como cliente e servidor trocam dados (request/response) |
-| TCP | Protocolo de transporte | 4 (Transporte) | Transporte | Confiável, orientado à conexão, garante ordem e entrega |
-| UDP | Protocolo de transporte | 4 (Transporte) | Transporte | Sem conexão, baixa latência, sem garantia de entrega |
+#### Modelo OSI (7 Camadas)
 
-| Exemplo | Pilha simplificada |
-|---|---|
-| HTTP/1.1 e HTTP/2 | `HTTP -> TCP -> IP` |
-| HTTP/3 | `HTTP -> QUIC(UDP) -> IP` |
+| Camada | Nome | Função Principal | Exemplos de Protocolos / Tecnologias |
+|---:|---|---|---|
+| 7 | Aplicação | Interface com o usuário e aplicações | HTTP, HTTPS, FTP, SMTP, DNS |
+| 6 | Apresentação | Formatação, criptografia, compressão | SSL/TLS, JPEG, MP3, JSON |
+| 5 | Sessão | Controle de sessão/conexão | NetBIOS, RPC |
+| 4 | Transporte | Comunicação fim a fim, controle de erro | TCP, UDP |
+| 3 | Rede | Endereçamento lógico e roteamento | IP, ICMP, IPSec |
+| 2 | Enlace | Comunicação dentro da rede local | Ethernet, ARP, PPP |
+| 1 | Física | Transmissão elétrica/óptica dos bits | Cabos, Fibra, Wi-Fi (parte física) |
+
+#### Modelo TCP/IP (4 Camadas)
+
+| Camada TCP/IP | Equivalente OSI | Exemplos |
+|---|---|---|
+| Aplicação | 7, 6 e 5 | HTTP, FTP, SMTP, DNS |
+| Transporte | 4 | TCP, UDP |
+| Internet | 3 | IP, ICMP |
+| Acesso à Rede | 2 e 1 | Ethernet, Wi-Fi |
+
+Resumo rápido da pilha:
+- HTTP/1.1 e HTTP/2: `HTTP -> TCP -> IP`
+- HTTP/3: `HTTP -> QUIC(UDP) -> IP`
+
+Analogia didática (mensagem e correio):
+1. Aplicação: escrever a mensagem
+2. Transporte: colocar no envelope (TCP controla se chegou)
+3. Rede: escolher rota até o destino
+4. Enlace: levar até o correio local
+5. Física: estrada e caminhão
+
+Exemplo básico em Go:
+
+```go
+http.ListenAndServe(":8080", nil)
+```
+
+Ou seja, `net/http` está no topo da pilha, mas depende de todas as camadas abaixo.
 
 ### REST vs RESTful
 
 - `REST` é um estilo arquitetural (conjunto de restrições)
 - `RESTful` é a API que aplica REST de forma consistente na prática
+
+### Significado das Siglas
+
+| Termo | Significado | Tipo | Onde se encaixa |
+|---|---|---|---|
+| HTTP | HyperText Transfer Protocol | Protocolo | Camada de Aplicação |
+| REST | Representational State Transfer | Estilo arquitetural | Usa HTTP |
+| SOAP | Simple Object Access Protocol | Protocolo | Usa HTTP (geralmente) |
+| gRPC | Google Remote Procedure Call | Framework / RPC | Usa HTTP/2 |
 
 ### REST Constraints
 
