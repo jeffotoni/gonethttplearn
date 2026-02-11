@@ -371,12 +371,92 @@ Motivos comuns:
 
 ### Níveis de maturidade (Richardson)
 
-| Nível | Descrição |
-|---|---|
-| 0 | HTTP só como transporte (RPC via HTTP) |
-| 1 | Recursos identificados por URI |
-| 2 | Uso correto de verbos HTTP + status codes |
-| 3 | Hipermídia (HATEOAS) |
+O modelo foi proposto por **Leonard Richardson**, arquiteto de software que escreveu sobre APIs REST e ajudou a popularizar boas práticas na construção de serviços HTTP.
+
+Objetivo do modelo:
+- avaliar o quão RESTful uma API é
+- classificar APIs HTTP em níveis de maturidade
+- ajudar a evoluir APIs de RPC disfarçado para REST mais bem estruturado
+
+Ele possui 4 níveis (0 a 3).
+
+| Nível | Nome | Descrição |
+|---:|---|---|
+| 0 | POX / RPC over HTTP | HTTP só como transporte |
+| 1 | Recursos | Recursos identificados por URI |
+| 2 | Verbos + status | Uso correto de verbos HTTP e status codes |
+| 3 | HATEOAS | Hipermídia guiando o cliente |
+
+#### 🔴 Nível 0 - The Swamp of POX
+
+- usa HTTP apenas como transporte
+- normalmente um único endpoint
+- comum ver `POST` para tudo
+
+Exemplo:
+
+```http
+POST /api
+Content-Type: application/json
+
+{
+  "action": "getUser",
+  "id": 10
+}
+```
+
+Aqui o HTTP vira só um "túnel" para comandos RPC.
+
+#### 🟠 Nível 1 - Recursos
+
+- separa por recursos (URLs diferentes)
+- ainda pode usar `POST` para quase tudo
+
+Exemplos de recursos:
+- `/users`
+- `/orders`
+
+Ganho principal: começo de organização por domínio.
+
+#### 🟡 Nível 2 - Verbos HTTP corretos
+
+- usa `GET`, `POST`, `PUT`, `DELETE` corretamente
+- usa status codes adequados
+
+Exemplos:
+
+```http
+GET /users/10
+DELETE /users/10
+```
+
+Aqui está a maioria das APIs que o mercado chama de REST na prática.
+
+#### 🟢 Nível 3 - HATEOAS
+
+`HATEOAS` = *Hypermedia As The Engine Of Application State*.
+
+A resposta inclui links para próximos passos possíveis.
+
+Exemplo:
+
+```json
+{
+  "id": 10,
+  "name": "Jefferson",
+  "links": [
+    {"rel": "orders", "href": "/users/10/orders"},
+    {"rel": "delete", "href": "/users/10"}
+  ]
+}
+```
+
+Aqui a API guia o cliente dinamicamente.
+
+Na prática:
+- a maioria das APIs modernas fica no nível 2
+- poucas implementam HATEOAS de forma completa
+- muitas APIs se dizem REST, mas ainda estão no nível 1
 
 ### HTTP Methods (Verbos HTTP)
 
