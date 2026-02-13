@@ -99,12 +99,13 @@ A proposta central é dominar o **net/http** para que frameworks sejam uma escol
 - [4.4 Algumas possibilidades](#4-algumas-possibilidades)
 - [4.5 `ServeMux` com method pattern + `http.Server`](#5-servemux-com-method-pattern--httpserver)
 - [4.6 Quando usar `http.Handler`?](#6-quando-usar-httphandler)
-- [5. Server API (em andamento / em breve)](#5-server-api-em-andamento--em-breve)
+- [5. Server API](#5-server-api)
 - [5.1 Padronizacao de resposta](#51-padronizacao-de-resposta)
 - [5.2 Mapa de erros e status por cenario](#52-mapa-de-erros-e-status-por-cenario)
 - [5.3 Organizacao de rotas](#53-organizacao-de-rotas)
 - [5.4 Validacao de entrada no servidor](#54-validacao-de-entrada-no-servidor)
 - [5.5 Health endpoints](#55-health-endpoints)
+- [5.6 Middleware Basic Auth](#56-middleware-basic-auth)
 - [6. Docker: build e run local](#6-docker-build-e-run-local)
 - [6.1 Dockerfile multi-stage (Alpine + timezone Brasil)](#61-dockerfile-multi-stage-alpine--timezone-brasil)
 - [6.2 Comandos basicos Docker](#62-comandos-basicos-docker)
@@ -1830,13 +1831,14 @@ curl -i localhost:8080/api/v1/user
 
 **Pontos selecionados:**
 
-| Item | 
+| Item |
 |---|
-| 5.1 Padronizacao de resposta | 
-| 5.2 Mapa de erros/status por cenario | 
-| 5.3 Organizacao de rotas | ok |
-| 5.4 Validacao de entrada no servidor | 
+| 5.1 Padronizacao de resposta |
+| 5.2 Mapa de erros/status por cenario |
+| 5.3 Organizacao de rotas |
+| 5.4 Validacao de entrada no servidor |
 | 5.5 Health endpoints |
+| 5.6 Middleware Basic Auth |
 
 ### 5.1 Padronizacao de resposta
 
@@ -2261,6 +2263,77 @@ curl -i localhost:8080/readyz
 curl -i localhost:8080/livez
 ```
 
+### 5.6 Middleware Basic Auth
+
+Quando usar (simples e didático):
+- proteger endpoint interno de laboratório/homologação
+- testar autenticação HTTP básica antes de adotar JWT/OAuth2
+
+```go
+package main
+
+import (
+	"crypto/subtle"
+	"log"
+	"net/http"
+)
+
+const (
+	basicUser = "admin"
+	basicPass = "123456"
+)
+
+func unauthorized(w http.ResponseWriter) {
+	w.Header().Set("WWW-Authenticate", `Basic realm="api", charset="UTF-8"`)
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusUnauthorized)
+	_, _ = w.Write([]byte(`{"error":"unauthorized"}`))
+}
+
+func basicAuthMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		user, pass, ok := r.BasicAuth()
+		if !ok {
+			unauthorized(w)
+			return
+		}
+
+		userOK := subtle.ConstantTimeCompare([]byte(user), []byte(basicUser)) == 1
+		passOK := subtle.ConstantTimeCompare([]byte(pass), []byte(basicPass)) == 1
+		if !userOK || !passOK {
+			unauthorized(w)
+			return
+		}
+
+		next.ServeHTTP(w, r)
+	})
+}
+
+func getUser(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	_, _ = w.Write([]byte(`{"name":"Jeff","email":"jeff@email.com"}`))
+}
+
+func main() {
+	mux := http.NewServeMux()
+	mux.HandleFunc("GET /api/v1/user", getUser)
+
+	handlerFinal := basicAuthMiddleware(mux)
+	log.Fatal(http.ListenAndServe(":8080", handlerFinal))
+}
+```
+
+Executar:
+
+```bash
+go run main.go
+curl -i localhost:8080/api/v1/user
+curl -i -u admin:123456 localhost:8080/api/v1/user
+```
+
+Observação:
+- para produção, não deixe usuário/senha hardcoded; use variáveis de ambiente e TLS (HTTPS) obrigatório.
+
 ## 6. Docker: build e run local
 
 Objetivo:
@@ -2281,20 +2354,23 @@ Arquivo `Dockerfile` (na raiz do projeto):
 
 FROM golang:1.25.6-alpine AS builder
 WORKDIR /src
-RUN apk add --no-cache ca-certificates tzdata
+RUN apk add --no-cache ca-certificates
 COPY . .
 ARG APP_FILE=main.go
 ENV CGO_ENABLED=0
 RUN go build -trimpath -ldflags="-s -w" -o /out/server "./${APP_FILE}"
 
 FROM alpine:3.20 AS runtime
-RUN apk add --no-cache ca-certificates tzdata \
-  && cp /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime \
-  && echo "America/Sao_Paulo" > /etc/timezone
 
+# ENV TZ=Europe/Madrid
 ENV TZ=America/Sao_Paulo
+RUN apk add --no-cache ca-certificates tzdata \
+  && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
+  && echo $TZ > /etc/timezone
+
 WORKDIR /app
 COPY --from=builder /out/server /app/server
+
 EXPOSE 8080
 USER nobody:nobody
 ENTRYPOINT ["/app/server"]
