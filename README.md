@@ -35,6 +35,7 @@ A proposta central é dominar o **net/http** para que frameworks sejam uma escol
 | Referência | Link | Tipo | Foco |
 |---|---|---|---|
 | Site oficial do Go | [go.dev](https://go.dev/) | Oficial | Portal principal da linguagem |
+| ChatBoot com Go | [ChatBoot Google Go](https://codewiki.google/github.com/golang/go#community-guidelines-and-support) | Oficial | ChatBoot Go |
 | Tutorial oficial | [go.dev/doc/tutorial](https://go.dev/doc/tutorial/) | Oficial | Passo a passo para começar |
 | Tour do Go | [go.dev/tour/welcome/1](https://go.dev/tour/welcome/1) | Oficial | Aprendizado interativo |
 | Especificação da linguagem | [go.dev/ref/spec](https://go.dev/ref/spec) | Oficial | Regras formais da linguagem |
