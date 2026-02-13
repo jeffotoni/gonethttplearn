@@ -28,7 +28,7 @@ A proposta central é dominar o **net/http** para que frameworks sejam uma escol
 | 👤 LinkedIn | [linkedin.com/in/jeffotoni](https://www.linkedin.com/in/jeffotoni) | Perfil profissional do autor |
 | 💻 GitHub (autor) | [github.com/jeffotoni](https://github.com/jeffotoni) | Repositórios e projetos do autor |
 | 🧭 Roadmap Go | [github.com/jeffotoni/groadmap](https://github.com/jeffotoni/groadmap) | Visão macro de estudo e evolução em Go |
-| ⚡ Quick | [github.com/jeffotoni/quick](https://github.com/jeffotoni/quick) | Framework super leve para APIs em Go |
+| ⚡ Site | [page/gonethttplearn](https://jeffotoni.github.io/gonethttplearn/) | Versão do nosso repo como site |
 
 **Referências Go**
 
@@ -43,6 +43,7 @@ A proposta central é dominar o **net/http** para que frameworks sejam uma escol
 | Notas da versão Go 1.26 | [go.dev/doc/go1.26](https://go.dev/doc/go1.26) | Oficial | Novidades da versão 1.26 |
 | Blog do Go 1.26 | [go.dev/blog/go1.26](https://go.dev/blog/go1.26?ref=dailydev) | Oficial | Explicações práticas da release |
 | Go by Example | [gobyexample.com](https://gobyexample.com) | Comunidade | Exemplos diretos e curtos |
+| Quick | [github.com/jeffotoni/quick](https://github.com/jeffotoni/quick) | oficial | Framework super leve para APIs em Go |
 
 **Referências Jeffotoni (Go e Arquitetura)**
 
