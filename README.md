@@ -21,7 +21,8 @@ A proposta central é dominar o **net/http** para que frameworks sejam uma escol
 
 | Canal | Link | Objetivo |
 |---|---|---|
-| 🎧 Podcast | [YouTube - Podcast do manual](https://www.youtube.com/watch?v=5E1FVbMDFs4) | Revisar os conceitos em formato de áudio |
+| 🎧 Podcast | [O que preciso saber sobre Backend?](https://youtu.be/_E20rA8bWGw) | Revisar os conceitos em formato de áudio |
+| 🎧 Podcast | [Mergulhando no backend](https://youtu.be/fJFQk-yFNxg) | Vamos rever em formato de áudio |
 | 💬 Chat de dúvidas | [NotebookLM - Chat do manual](https://notebooklm.google.com/notebook/c50bab62-0214-4b1a-9d53-78079ffc9fe6/preview) | Tirar dúvidas e reforçar o conteúdo |
 | 🖥️ Apresentação | [Google Slides do manual](https://docs.google.com/presentation/d/1To-ymSRme7iyUKflu2ctDfyrlY0NjaRnjKYCHQpu6eE/edit?usp=sharing) | Apoio visual para estudo e aula |
 | 👤 LinkedIn | [linkedin.com/in/jeffotoni](https://www.linkedin.com/in/jeffotoni) | Perfil profissional do autor |
@@ -1388,6 +1389,8 @@ Pontos criticos para explicar em aula:
 - `MaxHeaderBytes: 1 << 20` usa bit shift para definir limite de 1MB
 - keep-alive depende do cliente/proxy reutilizar conexao; o servidor define limites e politicas
 
+*Obs: O **Slowloris** é um tipo de ataque DoS (Denial of Service) que mantém várias conexões HTTP abertas enviando dados muito lentamente, sem finalizar a requisição.*
+
 #### 5.2) POST `/api/v1/user` com `json.NewDecoder`
 
 ```go
@@ -1818,26 +1821,26 @@ go run main.go
 curl -i localhost:8080/api/v1/user
 ```
 
-## 5. Server API (em andamento / em breve)
+## 5. Server API
 
-Foco deste bloco:
+**Foco deste bloco:**
 - somente lado servidor
 - exemplos pequenos para copiar, colar e evoluir
 - padronizar API antes de avançar para estrutura maior
 
-Status dos pontos selecionados:
+**Pontos selecionados:**
 
-| Item | Status no README |
-|---|---|
-| 5.1 Padronizacao de resposta | Implementado |
-| 5.2 Mapa de erros/status por cenario | Implementado |
-| 5.3 Organizacao de rotas | Implementado |
-| 5.4 Validacao de entrada no servidor | Implementado |
-| 5.5 Health endpoints | Implementado |
+| Item | 
+|---|
+| 5.1 Padronizacao de resposta | 
+| 5.2 Mapa de erros/status por cenario | 
+| 5.3 Organizacao de rotas | ok |
+| 5.4 Validacao de entrada no servidor | 
+| 5.5 Health endpoints |
 
 ### 5.1 Padronizacao de resposta
 
-Objetivo:
+**Objetivo:**
 - centralizar escrita de resposta em um ponto unico
 - evitar repeticao de `Header`, `WriteHeader`, `Write`
 - manter formato consistente de sucesso e erro
@@ -2274,7 +2277,7 @@ Pre-requisito:
 Arquivo `Dockerfile` (na raiz do projeto):
 
 ```dockerfile
-# syntax=docker/dockerfile:1
+# exemplo Dockerfile para Go
 
 FROM golang:1.25.6-alpine AS builder
 WORKDIR /src
@@ -2288,6 +2291,7 @@ FROM alpine:3.20 AS runtime
 RUN apk add --no-cache ca-certificates tzdata \
   && cp /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime \
   && echo "America/Sao_Paulo" > /etc/timezone
+
 ENV TZ=America/Sao_Paulo
 WORKDIR /app
 COPY --from=builder /out/server /app/server
